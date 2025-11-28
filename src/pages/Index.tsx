@@ -282,12 +282,45 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Developers Section (Placeholder) */}
+          {/* Developers Section */}
           <div id="developers" className="mt-20 sm:mt-24 md:mt-32 mb-12 sm:mb-16 px-2">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-3 sm:mb-4">For Developers</h2>
-            <p className="text-base sm:text-lg md:text-xl text-muted-foreground text-center mb-8 sm:mb-10 md:mb-12 max-w-2xl mx-auto">
-              Coming soon...
-            </p>
+            <div className="max-w-3xl mx-auto">
+              <div className="p-8 sm:p-10 rounded-2xl bg-card border-2 border-border">
+                <div className="text-center space-y-6">
+                  <div>
+                    <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                      Developed by Binary Brigades
+                    </h3>
+                    <p className="text-lg font-semibold text-accent mb-4">FOR IBM PROJECT</p>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <h4 className="text-lg font-semibold text-foreground">Team Members</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div className="p-3 rounded-lg bg-primary/5 border border-primary/20">
+                        <p className="font-medium text-foreground">DHATSHINAMOORTHY R</p>
+                      </div>
+                      <div className="p-3 rounded-lg bg-primary/5 border border-primary/20">
+                        <p className="font-medium text-foreground">ROKESHWARAN G</p>
+                      </div>
+                      <div className="p-3 rounded-lg bg-primary/5 border border-primary/20">
+                        <p className="font-medium text-foreground">PRAKASH S</p>
+                      </div>
+                      <div className="p-3 rounded-lg bg-primary/5 border border-primary/20">
+                        <p className="font-medium text-foreground">SONA JASMINE J</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="pt-4 border-t border-border">
+                    <p className="text-muted-foreground">
+                      4th Year CSE, KARE
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
