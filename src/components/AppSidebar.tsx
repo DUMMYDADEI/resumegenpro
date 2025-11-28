@@ -66,7 +66,7 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar collapsible="icon" className="border-r border-sidebar-border">
+    <Sidebar collapsible="icon" className="">
       <SidebarContent className="bg-sidebar-background">
         {/* Header Section */}
         <div className="px-6 py-8 bg-sidebar-header border-b border-sidebar-border">
