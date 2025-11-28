@@ -2,10 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Session } from "@supabase/supabase-js";
-import { Button } from "@/components/ui/button";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
-import { LogOut } from "lucide-react";
 
 const DashboardLayout = () => {
   const navigate = useNavigate();
@@ -31,11 +29,6 @@ const DashboardLayout = () => {
     return () => subscription.unsubscribe();
   }, [navigate]);
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    navigate("/auth");
-  };
-
   if (!session) return null;
 
   return (
@@ -44,13 +37,8 @@ const DashboardLayout = () => {
         <AppSidebar />
         
         <div className="flex-1 flex flex-col">
-          <header className="h-16 border-b border-primary/10 bg-background/80 backdrop-blur-sm flex items-center justify-between px-6 sticky top-0 z-10">
+          <header className="h-16 border-b border-primary/10 bg-background/80 backdrop-blur-sm flex items-center px-6 sticky top-0 z-10">
             <SidebarTrigger className="hover:bg-primary/10 transition-colors" />
-            
-            <Button variant="outline" onClick={handleSignOut} className="border-primary/20">
-              <LogOut className="w-4 h-4 mr-2" />
-              Sign Out
-            </Button>
           </header>
 
           <main className="flex-1 p-6 overflow-auto">

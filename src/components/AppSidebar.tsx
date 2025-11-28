@@ -1,5 +1,9 @@
-import { LayoutDashboard, Briefcase, CheckSquare, Share2, FileText } from "lucide-react";
+import { useState, useEffect } from "react";
+import { LayoutDashboard, Briefcase, CheckSquare, Share2, FileText, LogOut, User } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import {
   Sidebar,
   SidebarContent,
@@ -9,8 +13,10 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarFooter,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
 
 const menuItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
@@ -22,32 +28,98 @@ const menuItems = [
 
 export function AppSidebar() {
   const { open } = useSidebar();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const [userName, setUserName] = useState<string>("User");
+
+  useEffect(() => {
+    fetchUserProfile();
+  }, []);
+
+  const fetchUserProfile = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('full_name')
+          .eq('id', user.id)
+          .single();
+        
+        if (profile?.full_name) {
+          setUserName(profile.full_name);
+        } else {
+          setUserName(user.email?.split('@')[0] || 'User');
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+    }
+  };
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    navigate("/auth");
+    toast({
+      title: "Signed out successfully",
+    });
+  };
 
   return (
-    <Sidebar collapsible="icon" className="w-64 border-r border-primary/10">
-      <SidebarContent className="bg-gradient-to-b from-background via-primary/5 to-background">
-        <div className="px-6 py-8">
-          <h2 className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            ResumeGenPro
-          </h2>
+    <Sidebar collapsible="icon" className="border-r border-sidebar-border">
+      <SidebarContent className="bg-sidebar-background">
+        {/* Header Section */}
+        <div className="px-6 py-8 bg-sidebar-header border-b border-sidebar-border">
+          {open ? (
+            <>
+              <h2 className="text-xl font-bold text-sidebar-foreground text-center mb-1">
+                ResumeGenPro
+              </h2>
+              <p className="text-xs text-sidebar-foreground/70 text-center uppercase tracking-wider">
+                Employee Dashboard
+              </p>
+            </>
+          ) : (
+            <div className="w-8 h-8 mx-auto bg-sidebar-primary rounded-lg flex items-center justify-center">
+              <span className="text-sidebar-primary-foreground font-bold text-sm">R</span>
+            </div>
+          )}
         </div>
 
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-muted-foreground/70 uppercase tracking-wider text-xs px-6">
-            Navigation
+        {/* User Profile Section */}
+        {open && (
+          <div className="px-6 py-4 flex items-center gap-3 border-b border-sidebar-border">
+            <div className="w-10 h-10 rounded-full bg-sidebar-accent flex items-center justify-center">
+              <User className="w-5 h-5 text-sidebar-accent-foreground" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-sidebar-foreground truncate">
+                {userName}
+              </p>
+              <p className="text-xs text-sidebar-foreground/60">
+                Job Seeker
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Main Menu */}
+        <SidebarGroup className="px-3 py-4">
+          <SidebarGroupLabel className="text-sidebar-foreground/70 uppercase tracking-wider text-xs px-3 mb-2">
+            Main Menu
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-1">
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild className="mx-3 rounded-lg">
+                  <SidebarMenuButton asChild>
                     <NavLink
                       to={item.url}
-                      className="flex items-center gap-3 px-4 py-3 hover:bg-primary/10 transition-all duration-200"
-                      activeClassName="bg-gradient-to-r from-primary/20 to-secondary/20 font-semibold border-l-4 border-primary"
+                      className="flex items-center gap-3 px-4 py-3 text-sidebar-foreground/80 hover:bg-sidebar-menu-hover hover:text-sidebar-foreground rounded-lg transition-all duration-200"
+                      activeClassName="bg-sidebar-menu-active text-sidebar-primary-foreground font-medium shadow-sm"
                     >
-                      <item.icon className="w-5 h-5" />
-                      {open && <span>{item.title}</span>}
+                      <item.icon className="w-5 h-5 flex-shrink-0" />
+                      {open && <span className="text-sm">{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -56,6 +128,18 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      {/* Logout Button at Bottom */}
+      <SidebarFooter className="p-3 bg-sidebar-background border-t border-sidebar-border">
+        <Button
+          onClick={handleSignOut}
+          variant="destructive"
+          className="w-full justify-start gap-3 bg-destructive hover:bg-destructive/90"
+        >
+          <LogOut className="w-5 h-5" />
+          {open && <span>Logout</span>}
+        </Button>
+      </SidebarFooter>
     </Sidebar>
   );
 }

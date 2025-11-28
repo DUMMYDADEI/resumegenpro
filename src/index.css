@@ -30,14 +30,17 @@ All colors MUST be HSL.
     --input: 270 30% 90%;
     --ring: 270 95% 60%;
     --radius: 0.75rem;
-    --sidebar-background: 270 50% 98%;
-    --sidebar-foreground: 270 20% 20%;
-    --sidebar-primary: 270 95% 60%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 270 50% 95%;
-    --sidebar-accent-foreground: 270 95% 60%;
-    --sidebar-border: 270 30% 90%;
+    --sidebar-background: 217 91% 20%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 217 91% 20%;
+    --sidebar-accent: 217 71% 35%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 217 71% 25%;
     --sidebar-ring: 270 95% 60%;
+    --sidebar-header: 217 71% 30%;
+    --sidebar-menu-active: 0 0% 100%;
+    --sidebar-menu-hover: 217 71% 25%;
   }
 
   .dark {
@@ -60,14 +63,17 @@ All colors MUST be HSL.
     --border: 270 30% 20%;
     --input: 270 30% 20%;
     --ring: 270 95% 65%;
-    --sidebar-background: 270 40% 10%;
-    --sidebar-foreground: 270 10% 90%;
-    --sidebar-primary: 270 95% 65%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 270 40% 15%;
-    --sidebar-accent-foreground: 270 95% 65%;
-    --sidebar-border: 270 30% 20%;
+    --sidebar-background: 217 91% 20%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 217 91% 20%;
+    --sidebar-accent: 217 71% 35%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 217 71% 25%;
     --sidebar-ring: 270 95% 65%;
+    --sidebar-header: 217 71% 30%;
+    --sidebar-menu-active: 0 0% 100%;
+    --sidebar-menu-hover: 217 71% 25%;
   }
   
   * {
