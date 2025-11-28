@@ -86,27 +86,27 @@ const CoverLetters = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6 max-w-full overflow-x-hidden">
       <div className="flex items-center gap-3">
-        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-          <FileText className="w-6 h-6 text-primary" />
+        <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center flex-shrink-0">
+          <FileText className="w-5 h-5 md:w-6 md:h-6 text-primary" />
         </div>
-        <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
             Cover Letters
           </h1>
-          <p className="text-muted-foreground">View and copy your job-specific cover letters</p>
+          <p className="text-sm md:text-base text-muted-foreground truncate">View and copy your job-specific cover letters</p>
         </div>
       </div>
 
-      <Card className="border-primary/20 shadow-lg">
-        <CardHeader>
-          <CardTitle>Your Cover Letters</CardTitle>
-          <CardDescription>
+      <Card className="border-primary/20 shadow-lg max-w-full overflow-hidden">
+        <CardHeader className="px-4 md:px-6">
+          <CardTitle className="text-lg md:text-xl">Your Cover Letters</CardTitle>
+          <CardDescription className="text-sm">
             Click the copy button to easily paste your cover letters into applications
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-4 md:px-6">
           {loading ? (
             <div className="flex justify-center items-center py-8">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
@@ -178,18 +178,18 @@ const CoverLetters = () => {
               </div>
 
               {/* Mobile Card View */}
-              <div className="md:hidden space-y-4">
+              <div className="md:hidden space-y-3">
                 {coverLetters.map((letter) => (
-                  <Card key={letter.id} className="border-border">
-                    <CardContent className="p-4 space-y-3">
+                  <Card key={letter.id} className="border-border overflow-hidden">
+                    <CardContent className="p-3 space-y-3">
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground truncate">
+                          <h3 className="font-semibold text-sm text-foreground truncate">
                             {Array.isArray(letter.job_recommendations) 
                               ? letter.job_recommendations[0]?.company_name || 'N/A'
                               : letter.job_recommendations?.company_name || 'N/A'}
                           </h3>
-                          <p className="text-sm text-muted-foreground truncate">
+                          <p className="text-xs text-muted-foreground line-clamp-2 break-words">
                             {Array.isArray(letter.job_recommendations) 
                               ? letter.job_recommendations[0]?.job_description || 'N/A'
                               : letter.job_recommendations?.job_description || 'N/A'}
@@ -197,25 +197,19 @@ const CoverLetters = () => {
                         </div>
                         <Button
                           variant="outline"
-                          size="sm"
+                          size="icon"
                           onClick={() => copyToClipboard(letter.cover_letter_text, letter.id)}
-                          className="gap-2 flex-shrink-0"
+                          className="flex-shrink-0 h-8 w-8"
                         >
                           {copiedId === letter.id ? (
-                            <>
-                              <Check className="w-4 h-4" />
-                              <span className="sr-only">Copied</span>
-                            </>
+                            <Check className="w-4 h-4" />
                           ) : (
-                            <>
-                              <Copy className="w-4 h-4" />
-                              <span className="sr-only">Copy</span>
-                            </>
+                            <Copy className="w-4 h-4" />
                           )}
                         </Button>
                       </div>
                       
-                      <div className="text-sm text-muted-foreground line-clamp-3 whitespace-pre-wrap bg-muted/50 p-3 rounded-md">
+                      <div className="text-xs text-muted-foreground line-clamp-3 break-words bg-muted/50 p-2 rounded-md overflow-hidden">
                         {letter.cover_letter_text.replace(/\\n/g, '\n').replace(/\\t/g, '  ')}
                       </div>
                       
