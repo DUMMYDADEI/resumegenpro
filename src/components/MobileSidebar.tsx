@@ -63,9 +63,9 @@ export function MobileSidebar({ onNavigate }: MobileSidebarProps) {
   };
 
   return (
-    <div className="flex flex-col h-full bg-sidebar-background">
+    <div className="flex flex-col h-screen bg-sidebar-background">
       {/* Header Section */}
-      <div className="px-6 py-8 bg-sidebar-header border-b border-sidebar-border">
+      <div className="shrink-0 px-6 py-6 bg-sidebar-header border-b border-sidebar-border">
         <h2 className="text-xl font-bold text-sidebar-foreground text-center mb-1">
           ResumeGenPro
         </h2>
@@ -75,8 +75,8 @@ export function MobileSidebar({ onNavigate }: MobileSidebarProps) {
       </div>
 
       {/* User Profile Section */}
-      <div className="px-6 py-4 flex items-center gap-3 border-b border-sidebar-border">
-        <div className="w-10 h-10 rounded-full bg-sidebar-accent flex items-center justify-center">
+      <div className="shrink-0 px-6 py-4 flex items-center gap-3 border-b border-sidebar-border">
+        <div className="w-10 h-10 rounded-full bg-sidebar-accent flex items-center justify-center shrink-0">
           <User className="w-5 h-5 text-sidebar-accent-foreground" />
         </div>
         <div className="flex-1 min-w-0">
@@ -90,7 +90,7 @@ export function MobileSidebar({ onNavigate }: MobileSidebarProps) {
       </div>
 
       {/* Main Menu */}
-      <div className="flex-1 px-3 py-4 overflow-auto">
+      <div className="flex-1 px-3 py-4 overflow-y-auto">
         <p className="text-sidebar-foreground/70 uppercase tracking-wider text-xs px-3 mb-2">
           Main Menu
         </p>
@@ -103,7 +103,7 @@ export function MobileSidebar({ onNavigate }: MobileSidebarProps) {
               className="flex items-center gap-3 px-4 py-3 text-sidebar-foreground/80 hover:bg-sidebar-menu-hover hover:text-sidebar-foreground rounded-lg transition-all duration-200 [&.active]:bg-white [&.active]:text-black [&.active]:font-medium [&.active]:shadow-sm [&.active:hover]:text-black"
               activeClassName="active"
             >
-              <item.icon className="w-5 h-5 flex-shrink-0" />
+              <item.icon className="w-5 h-5 shrink-0" />
               <span className="text-sm">{item.title}</span>
             </NavLink>
           ))}
@@ -111,7 +111,7 @@ export function MobileSidebar({ onNavigate }: MobileSidebarProps) {
       </div>
 
       {/* Logout Button at Bottom */}
-      <div className="p-3 bg-sidebar-background border-t border-sidebar-border">
+      <div className="shrink-0 p-3 border-t border-sidebar-border">
         <Button
           onClick={handleSignOut}
           variant="destructive"
