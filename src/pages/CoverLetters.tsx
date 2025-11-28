@@ -117,61 +117,116 @@ const CoverLetters = () => {
               <p>No cover letters yet</p>
             </div>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Company</TableHead>
-                  <TableHead>Job</TableHead>
-                  <TableHead className="w-[50%]">Cover Letter</TableHead>
-                  <TableHead>Date</TableHead>
-                  <TableHead className="text-right">Action</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
+            <>
+              {/* Desktop Table View */}
+              <div className="hidden md:block overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Company</TableHead>
+                      <TableHead>Job</TableHead>
+                      <TableHead className="w-[50%]">Cover Letter</TableHead>
+                      <TableHead>Date</TableHead>
+                      <TableHead className="text-right">Action</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {coverLetters.map((letter) => (
+                      <TableRow key={letter.id}>
+                        <TableCell className="font-medium">
+                          {Array.isArray(letter.job_recommendations) 
+                            ? letter.job_recommendations[0]?.company_name || 'N/A'
+                            : letter.job_recommendations?.company_name || 'N/A'}
+                        </TableCell>
+                        <TableCell className="max-w-[200px] truncate">
+                          {Array.isArray(letter.job_recommendations) 
+                            ? letter.job_recommendations[0]?.job_description || 'N/A'
+                            : letter.job_recommendations?.job_description || 'N/A'}
+                        </TableCell>
+                        <TableCell className="max-w-[400px]">
+                          <div className="text-sm text-muted-foreground line-clamp-3 whitespace-pre-wrap">
+                            {letter.cover_letter_text.replace(/\\n/g, '\n').replace(/\\t/g, '  ')}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          {new Date(letter.created_at).toLocaleDateString()}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => copyToClipboard(letter.cover_letter_text, letter.id)}
+                            className="gap-2"
+                          >
+                            {copiedId === letter.id ? (
+                              <>
+                                <Check className="w-4 h-4" />
+                                Copied
+                              </>
+                            ) : (
+                              <>
+                                <Copy className="w-4 h-4" />
+                                Copy
+                              </>
+                            )}
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+
+              {/* Mobile Card View */}
+              <div className="md:hidden space-y-4">
                 {coverLetters.map((letter) => (
-                  <TableRow key={letter.id}>
-                    <TableCell className="font-medium">
-                      {Array.isArray(letter.job_recommendations) 
-                        ? letter.job_recommendations[0]?.company_name || 'N/A'
-                        : letter.job_recommendations?.company_name || 'N/A'}
-                    </TableCell>
-                    <TableCell className="max-w-[200px] truncate">
-                      {Array.isArray(letter.job_recommendations) 
-                        ? letter.job_recommendations[0]?.job_description || 'N/A'
-                        : letter.job_recommendations?.job_description || 'N/A'}
-                    </TableCell>
-                    <TableCell className="max-w-[400px]">
-                      <div className="text-sm text-muted-foreground line-clamp-3 whitespace-pre-wrap">
+                  <Card key={letter.id} className="border-border">
+                    <CardContent className="p-4 space-y-3">
+                      <div className="flex items-start justify-between gap-2">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-foreground truncate">
+                            {Array.isArray(letter.job_recommendations) 
+                              ? letter.job_recommendations[0]?.company_name || 'N/A'
+                              : letter.job_recommendations?.company_name || 'N/A'}
+                          </h3>
+                          <p className="text-sm text-muted-foreground truncate">
+                            {Array.isArray(letter.job_recommendations) 
+                              ? letter.job_recommendations[0]?.job_description || 'N/A'
+                              : letter.job_recommendations?.job_description || 'N/A'}
+                          </p>
+                        </div>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => copyToClipboard(letter.cover_letter_text, letter.id)}
+                          className="gap-2 flex-shrink-0"
+                        >
+                          {copiedId === letter.id ? (
+                            <>
+                              <Check className="w-4 h-4" />
+                              <span className="sr-only">Copied</span>
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="w-4 h-4" />
+                              <span className="sr-only">Copy</span>
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                      
+                      <div className="text-sm text-muted-foreground line-clamp-3 whitespace-pre-wrap bg-muted/50 p-3 rounded-md">
                         {letter.cover_letter_text.replace(/\\n/g, '\n').replace(/\\t/g, '  ')}
                       </div>
-                    </TableCell>
-                    <TableCell>
-                      {new Date(letter.created_at).toLocaleDateString()}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => copyToClipboard(letter.cover_letter_text, letter.id)}
-                        className="gap-2"
-                      >
-                        {copiedId === letter.id ? (
-                          <>
-                            <Check className="w-4 h-4" />
-                            Copied
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="w-4 h-4" />
-                            Copy
-                          </>
-                        )}
-                      </Button>
-                    </TableCell>
-                  </TableRow>
+                      
+                      <div className="text-xs text-muted-foreground">
+                        {new Date(letter.created_at).toLocaleDateString()}
+                      </div>
+                    </CardContent>
+                  </Card>
                 ))}
-              </TableBody>
-            </Table>
+              </div>
+            </>
           )}
         </CardContent>
       </Card>
