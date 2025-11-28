@@ -18,11 +18,14 @@ serve(async (req) => {
 
     console.log('Starting automated webhook send process...');
 
-    // Get current time in HH:MM format
+    // Get current time in IST (UTC+5:30)
     const now = new Date();
-    const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:00`;
+    const utcTime = now.getTime();
+    const istOffset = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30
+    const istTime = new Date(utcTime + istOffset);
+    const currentTime = `${String(istTime.getUTCHours()).padStart(2, '0')}:${String(istTime.getUTCMinutes()).padStart(2, '0')}:00`;
     
-    console.log(`Current time: ${currentTime}`);
+    console.log(`Current IST time: ${currentTime}`);
 
     // Get all enabled automation settings that match the current time
     const { data: automationSettings, error: settingsError } = await supabase
