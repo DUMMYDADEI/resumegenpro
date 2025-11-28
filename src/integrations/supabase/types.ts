@@ -81,6 +81,7 @@ export type Database = {
       }
       job_recommendations: {
         Row: {
+          applied: boolean
           apply_link: string
           ats_score: number
           company_name: string
@@ -91,6 +92,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          applied?: boolean
           apply_link: string
           ats_score: number
           company_name: string
@@ -101,6 +103,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          applied?: boolean
           apply_link?: string
           ats_score?: number
           company_name?: string

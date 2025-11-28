@@ -67,11 +67,30 @@ const AppliedJobRecommendations = () => {
   };
 
   const handleToggleApplied = async (jobId: string, currentStatus: boolean) => {
-    // This is a placeholder - you'll need to add an 'applied' column to your database
-    toast({
-      title: currentStatus ? "Marked as Not Applied" : "Marked as Applied",
-      description: "Job application status updated",
-    });
+    try {
+      const { error } = await supabase
+        .from('job_recommendations')
+        .update({ applied: currentStatus })
+        .eq('id', jobId);
+
+      if (error) throw error;
+
+      // Update local state optimistically
+      setJobs(jobs.map(job => 
+        job.id === jobId ? { ...job, applied: currentStatus } : job
+      ));
+
+      toast({
+        title: currentStatus ? "Marked as Applied" : "Marked as Not Applied",
+        description: "Job application status updated successfully",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error updating status",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
   };
 
   return (
