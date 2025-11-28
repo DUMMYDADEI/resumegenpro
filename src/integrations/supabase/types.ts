@@ -14,6 +14,41 @@ export type Database = {
   }
   public: {
     Tables: {
+      cover_letters: {
+        Row: {
+          cover_letter_text: string
+          created_at: string
+          id: string
+          job_recommendation_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          cover_letter_text: string
+          created_at?: string
+          id?: string
+          job_recommendation_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          cover_letter_text?: string
+          created_at?: string
+          id?: string
+          job_recommendation_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cover_letters_job_recommendation_id_fkey"
+            columns: ["job_recommendation_id"]
+            isOneToOne: false
+            referencedRelation: "job_recommendations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       job_recommendations: {
         Row: {
           apply_link: string

@@ -1,4 +1,4 @@
-import { LayoutDashboard, Briefcase, CheckSquare, Share2 } from "lucide-react";
+import { LayoutDashboard, Briefcase, CheckSquare, Share2, FileText } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import {
   Sidebar,
@@ -16,6 +16,7 @@ const menuItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
   { title: "Daily Job Recommendations", url: "/dashboard/daily-jobs", icon: Briefcase },
   { title: "Applied Job Recommendations", url: "/dashboard/applied-jobs", icon: CheckSquare },
+  { title: "Cover Letters", url: "/dashboard/cover-letters", icon: FileText },
   { title: "Social Media", url: "/dashboard/social-media", icon: Share2 },
 ];
 
