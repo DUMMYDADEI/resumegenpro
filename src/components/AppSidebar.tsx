@@ -115,8 +115,8 @@ export function AppSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink
                       to={item.url}
-                      className="flex items-center gap-3 px-4 py-3 text-sidebar-foreground/80 hover:bg-sidebar-menu-hover hover:text-sidebar-foreground rounded-lg transition-all duration-200"
-                      activeClassName="bg-white text-black font-medium shadow-sm"
+                      className="flex items-center gap-3 px-4 py-3 text-sidebar-foreground/80 hover:bg-sidebar-menu-hover hover:text-sidebar-foreground rounded-lg transition-all duration-200 [&.active]:bg-white [&.active]:text-black [&.active]:font-medium [&.active]:shadow-sm [&.active:hover]:text-black"
+                      activeClassName="active"
                     >
                       <item.icon className="w-5 h-5 flex-shrink-0" />
                       {open && <span className="text-sm">{item.title}</span>}
