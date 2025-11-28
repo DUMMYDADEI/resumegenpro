@@ -5,50 +5,44 @@ import { Session } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { Briefcase, FileCheck, Sparkles } from "lucide-react";
 import PillNavBar from "@/components/PillNavBar";
-
 const Index = () => {
   const navigate = useNavigate();
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({
+      data: {
+        session
+      }
+    }) => {
       setSession(session);
       setLoading(false);
     });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setSession(session);
+    const {
+      data: {
+        subscription
       }
-    );
-
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
     return () => subscription.unsubscribe();
   }, []);
-
   useEffect(() => {
     if (session) {
       navigate("/dashboard");
     }
   }, [session, navigate]);
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-background to-secondary/10">
+    return <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-background to-secondary/10">
         <div className="animate-pulse text-2xl font-semibold text-primary">Loading...</div>
-      </div>
-    );
+      </div>;
   }
-
   if (session) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-background to-secondary/10">
+    return <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/10 via-background to-secondary/10">
         <div className="animate-pulse text-2xl font-semibold text-primary">Redirecting…</div>
-      </div>
-    );
+      </div>;
   }
-
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-secondary/10">
+  return <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-secondary/10">
       <PillNavBar />
       <div className="container max-w-6xl mx-auto px-4 py-16 pt-28">
         <div className="text-center space-y-8">
@@ -74,7 +68,7 @@ const Index = () => {
               <div className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold text-sm mb-4">
                 ✨ Features
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+              <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent px-0 py-[6px] my-[5px] md:text-6xl">
                 Everything You Need to Succeed
               </h2>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -93,7 +87,9 @@ const Index = () => {
                 </p>
               </div>
 
-              <div className="group p-8 rounded-2xl bg-card border border-border hover:border-secondary/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+              <div className="group p-8 rounded-2xl bg-card border border-border hover:border-secondary/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{
+              animationDelay: '0.1s'
+            }}>
                 <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   <Sparkles className="w-8 h-8 text-secondary" />
                 </div>
@@ -103,7 +99,9 @@ const Index = () => {
                 </p>
               </div>
 
-              <div className="group p-8 rounded-2xl bg-card border border-border hover:border-accent/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              <div className="group p-8 rounded-2xl bg-card border border-border hover:border-accent/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{
+              animationDelay: '0.2s'
+            }}>
                 <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   <Briefcase className="w-8 h-8 text-accent" />
                 </div>
@@ -293,8 +291,6 @@ const Index = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
