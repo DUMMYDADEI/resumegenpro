@@ -74,7 +74,9 @@ const CoverLetters = () => {
 
   const copyToClipboard = async (text: string, id: string) => {
     try {
-      await navigator.clipboard.writeText(text);
+      // Replace \n with actual line breaks for proper formatting
+      const formattedText = text.replace(/\\n/g, '\n');
+      await navigator.clipboard.writeText(formattedText);
       setCopiedId(id);
       toast({
         title: "Copied!",
@@ -142,8 +144,8 @@ const CoverLetters = () => {
                       {letter.job_recommendations?.job_description || 'N/A'}
                     </TableCell>
                     <TableCell className="max-w-[400px]">
-                      <div className="text-sm text-muted-foreground line-clamp-3">
-                        {letter.cover_letter_text}
+                      <div className="text-sm text-muted-foreground line-clamp-3 whitespace-pre-wrap">
+                        {letter.cover_letter_text.replace(/\\n/g, '\n')}
                       </div>
                     </TableCell>
                     <TableCell>
