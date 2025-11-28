@@ -108,7 +108,28 @@ const DailyJobRecommendations = () => {
                 {jobs.map((job) => (
                   <TableRow key={job.id}>
                     <TableCell className="font-medium">{job.company_name}</TableCell>
-                    <TableCell>{job.job_description}</TableCell>
+                    <TableCell>
+                      {(() => {
+                        try {
+                          const description = typeof job.job_description === 'string' 
+                            ? JSON.parse(job.job_description) 
+                            : job.job_description;
+                          
+                          if (Array.isArray(description)) {
+                            return (
+                              <ul className="list-disc list-inside space-y-1">
+                                {description.map((item, index) => (
+                                  <li key={index} className="text-sm">{item}</li>
+                                ))}
+                              </ul>
+                            );
+                          }
+                          return description;
+                        } catch {
+                          return job.job_description;
+                        }
+                      })()}
+                    </TableCell>
                     <TableCell className="text-center">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                         job.ats_score >= 90 ? 'bg-green-100 text-green-800' :
