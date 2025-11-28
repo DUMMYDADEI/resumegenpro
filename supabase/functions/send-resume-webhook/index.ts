@@ -75,6 +75,8 @@ serve(async (req) => {
           .select('feed_url')
           .eq('user_id', setting.user_id);
 
+        const rssFeedUrl = rssFeeds?.[0]?.feed_url || '';
+
         // Download resume file
         const { data: fileData, error: downloadError } = await supabase
           .storage
@@ -90,7 +92,7 @@ serve(async (req) => {
         const formData = new FormData();
         formData.append('resume', new Blob([fileData], { type: 'application/pdf' }), resume.file_name);
         formData.append('whatsapp_number', socialMedia?.whatsapp_number || '');
-        formData.append('rss_feeds', JSON.stringify(rssFeeds?.map(f => f.feed_url) || []));
+        formData.append('rss_feed_url', rssFeedUrl);
 
         // Send to webhook
         const webhookResponse = await fetch('https://n8n.techverseinfo.tech/webhook/resume-intake', {
