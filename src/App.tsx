@@ -10,6 +10,7 @@ import DashboardLayout from "./pages/DashboardLayout";
 import Dashboard from "./pages/Dashboard";
 import DailyJobRecommendations from "./pages/DailyJobRecommendations";
 import AppliedJobRecommendations from "./pages/AppliedJobRecommendations";
+import CoverLetters from "./pages/CoverLetters";
 import SocialMedia from "./pages/SocialMedia";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
             <Route index element={<Dashboard />} />
             <Route path="daily-jobs" element={<DailyJobRecommendations />} />
             <Route path="applied-jobs" element={<AppliedJobRecommendations />} />
+            <Route path="cover-letters" element={<CoverLetters />} />
             <Route path="social-media" element={<SocialMedia />} />
           </Route>
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
