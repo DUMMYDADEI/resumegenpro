@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Session } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { Briefcase, FileCheck, Sparkles } from "lucide-react";
+import PillNavBar from "@/components/PillNavBar";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -48,7 +49,8 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-secondary/10">
-      <div className="container max-w-6xl mx-auto px-4 py-16">
+      <PillNavBar />
+      <div className="container max-w-6xl mx-auto px-4 py-16 pt-28">
         <div className="text-center space-y-8">
           <div className="space-y-4">
             <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
@@ -66,7 +68,7 @@ const Index = () => {
             </Button>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mt-16">
+          <div id="features" className="grid md:grid-cols-3 gap-8 mt-16">
             <div className="p-6 rounded-xl bg-card border-2 border-primary/20 hover:border-primary/40 transition-colors">
               <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
                 <FileCheck className="w-6 h-6 text-primary" />
