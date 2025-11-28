@@ -154,73 +154,76 @@ const SocialMedia = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6 max-w-full overflow-x-hidden">
       <div>
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+        <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
           Social Media & RSS Feeds
         </h1>
-        <p className="text-muted-foreground mt-2">
+        <p className="text-sm md:text-base text-muted-foreground mt-2">
           Manage your contact details and job aggregator feeds
         </p>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Share2 className="w-5 h-5 text-primary" />
+      <Card className="overflow-hidden">
+        <CardHeader className="px-4 md:px-6">
+          <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
+            <Share2 className="w-4 h-4 md:w-5 md:h-5 text-primary flex-shrink-0" />
             WhatsApp Contact
           </CardTitle>
-          <CardDescription>
+          <CardDescription className="text-sm">
             Add your WhatsApp number for job notifications
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="space-y-4 px-4 md:px-6">
           <div className="space-y-2">
-            <Label htmlFor="whatsapp">WhatsApp Number</Label>
+            <Label htmlFor="whatsapp" className="text-sm">WhatsApp Number</Label>
             <Input
               id="whatsapp"
               type="tel"
               placeholder="+1234567890"
               value={whatsappNumber}
               onChange={(e) => setWhatsappNumber(e.target.value)}
+              className="text-sm"
             />
           </div>
-          <Button onClick={handleSaveSocialMedia} disabled={loading}>
+          <Button onClick={handleSaveSocialMedia} disabled={loading} className="w-full md:w-auto text-sm">
             {socialMediaId ? "Update" : "Save"} WhatsApp Number
           </Button>
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>RSS Feed Job Aggregator</CardTitle>
-          <CardDescription>
+      <Card className="overflow-hidden">
+        <CardHeader className="px-4 md:px-6">
+          <CardTitle className="text-lg md:text-xl">RSS Feed Job Aggregator</CardTitle>
+          <CardDescription className="text-sm">
             Add RSS feed links to aggregate job postings
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-4 p-4 border rounded-lg bg-accent/5">
+        <CardContent className="space-y-4 px-4 md:px-6">
+          <div className="space-y-4 p-3 md:p-4 border rounded-lg bg-accent/5">
             <div className="space-y-2">
-              <Label htmlFor="feedName">Feed Name</Label>
+              <Label htmlFor="feedName" className="text-sm">Feed Name</Label>
               <Input
                 id="feedName"
                 placeholder="e.g., Indeed Tech Jobs"
                 value={newFeedName}
                 onChange={(e) => setNewFeedName(e.target.value)}
+                className="text-sm"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="feedUrl">RSS Feed URL</Label>
+              <Label htmlFor="feedUrl" className="text-sm">RSS Feed URL</Label>
               <Input
                 id="feedUrl"
                 type="url"
                 placeholder="https://example.com/rss/feed"
                 value={newFeedUrl}
                 onChange={(e) => setNewFeedUrl(e.target.value)}
+                className="text-sm"
               />
             </div>
-            <div className="flex gap-2">
-              <Button onClick={handleAddRssFeed} disabled={loading}>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <Button onClick={handleAddRssFeed} disabled={loading} className="w-full sm:w-auto text-sm">
                 {editingFeedId ? <Edit className="w-4 h-4 mr-2" /> : <Plus className="w-4 h-4 mr-2" />}
                 {editingFeedId ? "Update Feed" : "Add Feed"}
               </Button>
@@ -232,6 +235,7 @@ const SocialMedia = () => {
                     setNewFeedName("");
                     setNewFeedUrl("");
                   }}
+                  className="w-full sm:w-auto text-sm"
                 >
                   Cancel
                 </Button>
@@ -240,7 +244,7 @@ const SocialMedia = () => {
           </div>
 
           <div className="space-y-2">
-            <h3 className="font-semibold">Your RSS Feeds</h3>
+            <h3 className="font-semibold text-sm md:text-base">Your RSS Feeds</h3>
             {rssFeeds.length === 0 ? (
               <p className="text-sm text-muted-foreground text-center py-4">
                 No RSS feeds added yet
@@ -249,19 +253,20 @@ const SocialMedia = () => {
               rssFeeds.map((feed) => (
                 <div
                   key={feed.id}
-                  className="flex items-center justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors"
+                  className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-0 sm:justify-between p-3 border rounded-lg hover:bg-accent/50 transition-colors"
                 >
-                  <div>
-                    <p className="font-medium">{feed.feed_name}</p>
-                    <p className="text-xs text-muted-foreground truncate max-w-md">
+                  <div className="min-w-0 flex-1">
+                    <p className="font-medium text-sm truncate">{feed.feed_name}</p>
+                    <p className="text-xs text-muted-foreground break-all sm:truncate sm:max-w-md">
                       {feed.feed_url}
                     </p>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 self-end sm:self-auto flex-shrink-0">
                     <Button
                       variant="ghost"
                       size="icon"
                       onClick={() => handleEditFeed(feed)}
+                      className="h-8 w-8"
                     >
                       <Edit className="w-4 h-4" />
                     </Button>
@@ -269,7 +274,7 @@ const SocialMedia = () => {
                       variant="ghost"
                       size="icon"
                       onClick={() => handleDeleteFeed(feed.id)}
-                      className="text-destructive hover:text-destructive"
+                      className="text-destructive hover:text-destructive h-8 w-8"
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>
