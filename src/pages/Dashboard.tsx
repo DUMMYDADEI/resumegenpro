@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { Upload, FileText, Trash2, Send, CheckCircle, XCircle, Clock, Play, Square } from "lucide-react";
+import { TimePicker } from "@/components/TimePicker";
 
 const Dashboard = () => {
   const [uploading, setUploading] = useState(false);
@@ -467,16 +468,11 @@ const Dashboard = () => {
                 </Select>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="scheduled-time">Scheduled Time (Daily)</Label>
-                <Input
-                  id="scheduled-time"
-                  type="time"
-                  value={scheduledTime}
-                  onChange={(e) => setScheduledTime(e.target.value)}
-                  className="w-full"
-                />
-              </div>
+              <TimePicker
+                value={scheduledTime}
+                onChange={setScheduledTime}
+                label="Scheduled Time (Daily)"
+              />
 
               <div className="flex items-center gap-2">
                 <Button
