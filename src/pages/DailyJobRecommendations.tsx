@@ -228,9 +228,13 @@ const DailyJobRecommendations = () => {
         </Card>
       ) : (
         <Tabs defaultValue="today" className="w-full">
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2">
-            <TabsTrigger value="today">Today's Recommendations</TabsTrigger>
-            <TabsTrigger value="previous">Previous Recommendations</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2 h-auto">
+            <TabsTrigger value="today" className="text-xs sm:text-sm px-2 py-2.5">
+              Today's Recommendations
+            </TabsTrigger>
+            <TabsTrigger value="previous" className="text-xs sm:text-sm px-2 py-2.5">
+              Previous Recommendations
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="today" className="space-y-4 mt-6">
