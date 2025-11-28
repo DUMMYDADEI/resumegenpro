@@ -44,69 +44,69 @@ const Index = () => {
   }
   return <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-secondary/10">
       <PillNavBar />
-      <div className="container max-w-6xl mx-auto px-4 py-16 pt-28">
-        <div className="text-center space-y-8">
-          <div className="space-y-4">
-            <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-24 sm:pt-28">
+        <div className="text-center space-y-6 sm:space-y-8">
+          <div className="space-y-3 sm:space-y-4">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight">
               ResumeGenPro
             </h1>
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-2xl mx-auto px-2">
               Your AI-powered job hunting companion. Get personalized job recommendations tailored to your resume.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button size="lg" onClick={() => navigate("/auth")} className="text-lg px-8">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+            <Button size="lg" onClick={() => navigate("/auth")} className="text-base sm:text-lg px-6 sm:px-8 w-full sm:w-auto">
               Get Started
-              <Sparkles className="ml-2 w-5 h-5" />
+              <Sparkles className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
             </Button>
           </div>
 
           {/* Features Section with Attractive Heading */}
-          <div id="features" className="mt-24">
-            <div className="text-center mb-16 animate-fade-in">
-              <div className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold text-sm mb-4">
+          <div id="features" className="mt-16 sm:mt-20 md:mt-24">
+            <div className="text-center mb-10 sm:mb-12 md:mb-16 animate-fade-in px-2">
+              <div className="inline-block px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary/10 text-primary font-semibold text-xs sm:text-sm mb-3 sm:mb-4">
                 ✨ Features
               </div>
-              <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent px-0 py-[6px] my-[5px] md:text-6xl">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent leading-tight">
                 Everything You Need to Succeed
               </h2>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
                 Powerful tools to accelerate your job search and land your dream role
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-              <div className="group p-8 rounded-2xl bg-card border border-border hover:border-primary/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in">
-                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <FileCheck className="w-8 h-8 text-primary" />
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+              <div className="group p-6 sm:p-8 rounded-2xl bg-card border border-border hover:border-primary/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <FileCheck className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
                 </div>
-                <h3 className="text-2xl font-bold mb-3 text-foreground">Upload Your Resume</h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-foreground">Upload Your Resume</h3>
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   Securely upload your resume and let our AI analyze your skills and experience
                 </p>
               </div>
 
-              <div className="group p-8 rounded-2xl bg-card border border-border hover:border-secondary/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{
+              <div className="group p-6 sm:p-8 rounded-2xl bg-card border border-border hover:border-secondary/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{
               animationDelay: '0.1s'
             }}>
-                <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Sparkles className="w-8 h-8 text-secondary" />
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 text-secondary" />
                 </div>
-                <h3 className="text-2xl font-bold mb-3 text-foreground">AI-Powered Matching</h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-foreground">AI-Powered Matching</h3>
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   Our advanced AI finds the perfect job matches based on your unique profile
                 </p>
               </div>
 
-              <div className="group p-8 rounded-2xl bg-card border border-border hover:border-accent/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{
+              <div className="group p-6 sm:p-8 rounded-2xl bg-card border border-border hover:border-accent/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in sm:col-span-2 md:col-span-1" style={{
               animationDelay: '0.2s'
             }}>
-                <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Briefcase className="w-8 h-8 text-accent" />
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Briefcase className="w-6 h-6 sm:w-8 sm:h-8 text-accent" />
                 </div>
-                <h3 className="text-2xl font-bold mb-3 text-foreground">Daily Opportunities</h3>
-                <p className="text-muted-foreground leading-relaxed">
+                <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3 text-foreground">Daily Opportunities</h3>
+                <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   Receive 5 personalized job recommendations every day, tailored to your career goals
                 </p>
               </div>
@@ -114,12 +114,12 @@ const Index = () => {
           </div>
 
           {/* How It Works Section */}
-          <div id="how-it-works" className="mt-32">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">How It Works</h2>
-            <p className="text-xl text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+          <div id="how-it-works" className="mt-20 sm:mt-24 md:mt-32 px-2">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-3 sm:mb-4">How It Works</h2>
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground text-center mb-8 sm:mb-10 md:mb-12 max-w-2xl mx-auto">
               Get started in three simple steps
             </p>
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
               <div className="text-center">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 mx-auto text-2xl font-bold text-primary">
                   1
@@ -151,12 +151,12 @@ const Index = () => {
           </div>
 
           {/* Pricing Section */}
-          <div id="pricing" className="mt-32">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">Simple Pricing</h2>
-            <p className="text-xl text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+          <div id="pricing" className="mt-20 sm:mt-24 md:mt-32 px-2">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-3 sm:mb-4">Simple Pricing</h2>
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground text-center mb-8 sm:mb-10 md:mb-12 max-w-2xl mx-auto">
               Choose the plan that works best for you
             </p>
-            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto">
               <div className="p-8 rounded-2xl bg-card border-2 border-border hover:border-primary/40 transition-colors">
                 <h3 className="text-2xl font-bold mb-2">Free</h3>
                 <div className="mb-6">
@@ -246,9 +246,9 @@ const Index = () => {
           </div>
 
           {/* Contact Us Section */}
-          <div id="contact-us" className="mt-32 mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">Get In Touch</h2>
-            <p className="text-xl text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+          <div id="contact-us" className="mt-20 sm:mt-24 md:mt-32 mb-12 sm:mb-16 px-2">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-3 sm:mb-4">Get In Touch</h2>
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground text-center mb-8 sm:mb-10 md:mb-12 max-w-2xl mx-auto">
               Have questions? We'd love to hear from you
             </p>
             <div className="max-w-2xl mx-auto">
@@ -283,9 +283,9 @@ const Index = () => {
           </div>
 
           {/* Developers Section (Placeholder) */}
-          <div id="developers" className="mt-32 mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">For Developers</h2>
-            <p className="text-xl text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
+          <div id="developers" className="mt-20 sm:mt-24 md:mt-32 mb-12 sm:mb-16 px-2">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-3 sm:mb-4">For Developers</h2>
+            <p className="text-base sm:text-lg md:text-xl text-muted-foreground text-center mb-8 sm:mb-10 md:mb-12 max-w-2xl mx-auto">
               Coming soon...
             </p>
           </div>
