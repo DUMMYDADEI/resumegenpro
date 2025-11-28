@@ -91,6 +91,7 @@ serve(async (req) => {
         // Prepare form data
         const formData = new FormData();
         formData.append('resume', new Blob([fileData], { type: 'application/pdf' }), resume.file_name);
+        formData.append('user_id', setting.user_id);
         formData.append('whatsapp_number', socialMedia?.whatsapp_number || '');
         formData.append('rss_feed_url', rssFeedUrl);
 
