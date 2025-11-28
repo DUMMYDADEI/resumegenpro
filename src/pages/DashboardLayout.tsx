@@ -47,7 +47,7 @@ const DashboardLayout = () => {
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="p-0 w-64 border-0">
+            <SheetContent side="left" className="p-0 w-64 border-0 bg-sidebar-background">
               <MobileSidebar onNavigate={() => setMobileMenuOpen(false)} />
             </SheetContent>
           </Sheet>
