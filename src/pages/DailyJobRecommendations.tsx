@@ -65,94 +65,150 @@ const DailyJobRecommendations = () => {
     }
   };
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6 px-4 md:px-0">
       <div>
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+        <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
           Daily Job Recommendations
         </h1>
-        <p className="text-muted-foreground mt-2">
+        <p className="text-muted-foreground mt-2 text-sm md:text-base">
           Get 5 personalized job recommendations based on your resume
         </p>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Briefcase className="w-5 h-5 text-primary" />
-            Today's Recommendations
-          </CardTitle>
-          <CardDescription>
-            Your personalized job matches for today
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {loading ? (
-            <p className="text-sm text-muted-foreground text-center py-8">
-              Loading job recommendations...
-            </p>
-          ) : jobs.length === 0 ? (
-            <p className="text-sm text-muted-foreground text-center py-8">
+      {loading ? (
+        <p className="text-sm text-muted-foreground text-center py-8">
+          Loading job recommendations...
+        </p>
+      ) : jobs.length === 0 ? (
+        <Card>
+          <CardContent className="py-8">
+            <p className="text-sm text-muted-foreground text-center">
               No job recommendations yet. Upload your resume to start receiving daily job recommendations.
             </p>
-          ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Company Name</TableHead>
-                  <TableHead>Job Description</TableHead>
-                  <TableHead className="text-center">ATS Score</TableHead>
-                  <TableHead className="text-center">Apply</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {jobs.map((job) => (
-                  <TableRow key={job.id}>
-                    <TableCell className="font-medium">{job.company_name}</TableCell>
-                    <TableCell>
-                      {(() => {
-                        try {
-                          const description = typeof job.job_description === 'string' 
-                            ? JSON.parse(job.job_description) 
-                            : job.job_description;
-                          
-                          if (Array.isArray(description)) {
-                            return (
-                              <ul className="list-disc list-inside space-y-1">
-                                {description.map((item, index) => (
-                                  <li key={index} className="text-sm">{item}</li>
-                                ))}
-                              </ul>
-                            );
-                          }
-                          return description;
-                        } catch {
-                          return job.job_description;
-                        }
-                      })()}
-                    </TableCell>
-                    <TableCell className="text-center">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        job.ats_score >= 90 ? 'bg-green-100 text-green-800' :
-                        job.ats_score >= 80 ? 'bg-blue-100 text-blue-800' :
-                        'bg-yellow-100 text-yellow-800'
-                      }`}>
-                        {job.ats_score}%
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-center">
-                      <Button size="sm" variant="outline" asChild>
-                        <a href={job.apply_link} target="_blank" rel="noopener noreferrer">
-                          Apply <ExternalLink className="w-3 h-3 ml-1" />
-                        </a>
-                      </Button>
-                    </TableCell>
+          </CardContent>
+        </Card>
+      ) : (
+        <>
+          {/* Desktop Table View */}
+          <Card className="hidden md:block">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Briefcase className="w-5 h-5 text-primary" />
+                Today's Recommendations
+              </CardTitle>
+              <CardDescription>
+                Your personalized job matches for today
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Company Name</TableHead>
+                    <TableHead>Job Description</TableHead>
+                    <TableHead className="text-center">ATS Score</TableHead>
+                    <TableHead className="text-center">Apply</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          )}
-        </CardContent>
-      </Card>
+                </TableHeader>
+                <TableBody>
+                  {jobs.map((job) => (
+                    <TableRow key={job.id}>
+                      <TableCell className="font-medium">{job.company_name}</TableCell>
+                      <TableCell>
+                        {(() => {
+                          try {
+                            const description = typeof job.job_description === 'string' 
+                              ? JSON.parse(job.job_description) 
+                              : job.job_description;
+                            
+                            if (Array.isArray(description)) {
+                              return (
+                                <ul className="list-disc list-inside space-y-1">
+                                  {description.map((item, index) => (
+                                    <li key={index} className="text-sm">{item}</li>
+                                  ))}
+                                </ul>
+                              );
+                            }
+                            return description;
+                          } catch {
+                            return job.job_description;
+                          }
+                        })()}
+                      </TableCell>
+                      <TableCell className="text-center">
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          job.ats_score >= 90 ? 'bg-green-100 text-green-800' :
+                          job.ats_score >= 80 ? 'bg-blue-100 text-blue-800' :
+                          'bg-yellow-100 text-yellow-800'
+                        }`}>
+                          {job.ats_score}%
+                        </span>
+                      </TableCell>
+                      <TableCell className="text-center">
+                        <Button size="sm" variant="outline" asChild>
+                          <a href={job.apply_link} target="_blank" rel="noopener noreferrer">
+                            Apply <ExternalLink className="w-3 h-3 ml-1" />
+                          </a>
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+
+          {/* Mobile Card View */}
+          <div className="md:hidden space-y-4">
+            {jobs.map((job) => (
+              <Card key={job.id}>
+                <CardHeader className="pb-3">
+                  <div className="flex items-start justify-between gap-2">
+                    <CardTitle className="text-lg">{job.company_name}</CardTitle>
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium whitespace-nowrap ${
+                      job.ats_score >= 90 ? 'bg-green-100 text-green-800' :
+                      job.ats_score >= 80 ? 'bg-blue-100 text-blue-800' :
+                      'bg-yellow-100 text-yellow-800'
+                    }`}>
+                      {job.ats_score}%
+                    </span>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div>
+                    {(() => {
+                      try {
+                        const description = typeof job.job_description === 'string' 
+                          ? JSON.parse(job.job_description) 
+                          : job.job_description;
+                        
+                        if (Array.isArray(description)) {
+                          return (
+                            <ul className="list-disc list-inside space-y-1.5 text-sm text-muted-foreground">
+                              {description.map((item, index) => (
+                                <li key={index}>{item}</li>
+                              ))}
+                            </ul>
+                          );
+                        }
+                        return <p className="text-sm text-muted-foreground">{description}</p>;
+                      } catch {
+                        return <p className="text-sm text-muted-foreground">{job.job_description}</p>;
+                      }
+                    })()}
+                  </div>
+                  <Button className="w-full" variant="outline" asChild>
+                    <a href={job.apply_link} target="_blank" rel="noopener noreferrer">
+                      Apply <ExternalLink className="w-4 h-4 ml-2" />
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };
