@@ -11,6 +11,8 @@ const PillNavBar = () => {
     { label: "Features", href: "#features" },
     { label: "How It Works", href: "#how-it-works" },
     { label: "Pricing", href: "#pricing" },
+    { label: "Contact Us", href: "#contact-us" },
+    { label: "Developers", href: "#developers" },
   ];
 
   const scrollToSection = (href: string) => {
