@@ -100,7 +100,7 @@ export function MobileSidebar({ onNavigate }: MobileSidebarProps) {
               key={item.title}
               to={item.url}
               onClick={handleNavClick}
-              className="flex items-center gap-3 px-4 py-3 text-sidebar-foreground/80 hover:bg-sidebar-menu-hover hover:text-sidebar-foreground rounded-lg transition-all duration-200 [&.active]:bg-white [&.active]:text-black [&.active]:font-medium [&.active]:shadow-sm [&.active:hover]:text-black"
+              className="flex items-center gap-3 px-4 py-3 text-sidebar-foreground/80 hover:bg-sidebar-menu-hover hover:text-sidebar-foreground rounded-lg transition-all duration-200 [&.active]:bg-sidebar-menu-hover [&.active]:text-sidebar-menu-active-foreground [&.active]:font-medium [&.active]:shadow-sm"
               activeClassName="active"
             >
               <item.icon className="w-5 h-5 shrink-0" />
