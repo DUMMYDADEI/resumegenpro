@@ -4,7 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Button } from "@/components/ui/button";
 import { FileText, Copy, Check } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "@/lib/toast";
 
 interface CoverLetter {
   id: string;
@@ -14,14 +14,16 @@ interface CoverLetter {
   job_recommendations?: {
     company_name: string;
     job_description: string;
-  };
+  } | {
+    company_name: string;
+    job_description: string;
+  }[];
 }
 
 const CoverLetters = () => {
   const [coverLetters, setCoverLetters] = useState<CoverLetter[]>([]);
   const [loading, setLoading] = useState(true);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const { toast } = useToast();
 
   useEffect(() => {
     fetchCoverLetters();
@@ -62,11 +64,7 @@ const CoverLetters = () => {
       if (error) throw error;
       setCoverLetters(data || []);
     } catch (error: any) {
-      toast({
-        title: "Error fetching cover letters",
-        description: error.message,
-        variant: "destructive",
-      });
+      toast.error(error.message || "Error fetching cover letters");
     } finally {
       setLoading(false);
     }
@@ -80,17 +78,10 @@ const CoverLetters = () => {
         .replace(/\\t/g, '  ');
       await navigator.clipboard.writeText(formattedText);
       setCopiedId(id);
-      toast({
-        title: "Copied!",
-        description: "Cover letter copied to clipboard",
-      });
+      toast.success("Cover letter copied to clipboard");
       setTimeout(() => setCopiedId(null), 2000);
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to copy to clipboard",
-        variant: "destructive",
-      });
+      toast.error("Failed to copy to clipboard");
     }
   };
 
@@ -140,10 +131,14 @@ const CoverLetters = () => {
                 {coverLetters.map((letter) => (
                   <TableRow key={letter.id}>
                     <TableCell className="font-medium">
-                      {letter.job_recommendations?.company_name || 'N/A'}
+                      {Array.isArray(letter.job_recommendations) 
+                        ? letter.job_recommendations[0]?.company_name || 'N/A'
+                        : letter.job_recommendations?.company_name || 'N/A'}
                     </TableCell>
                     <TableCell className="max-w-[200px] truncate">
-                      {letter.job_recommendations?.job_description || 'N/A'}
+                      {Array.isArray(letter.job_recommendations) 
+                        ? letter.job_recommendations[0]?.job_description || 'N/A'
+                        : letter.job_recommendations?.job_description || 'N/A'}
                     </TableCell>
                     <TableCell className="max-w-[400px]">
                       <div className="text-sm text-muted-foreground line-clamp-3 whitespace-pre-wrap">
