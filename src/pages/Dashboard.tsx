@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
-import { Upload, FileText, Trash2, Send, CheckCircle, XCircle } from "lucide-react";
+import { Upload, FileText, Trash2, Send, CheckCircle, XCircle, Clock, Play, Square } from "lucide-react";
 
 const Dashboard = () => {
   const [uploading, setUploading] = useState(false);
@@ -15,11 +15,16 @@ const Dashboard = () => {
   const [whatsappNumber, setWhatsappNumber] = useState<string>("");
   const [rssFeeds, setRssFeeds] = useState<any[]>([]);
   const [sending, setSending] = useState(false);
+  const [automationEnabled, setAutomationEnabled] = useState(false);
+  const [scheduledTime, setScheduledTime] = useState("09:00");
+  const [automationResumeId, setAutomationResumeId] = useState<string>("");
+  const [savingAutomation, setSavingAutomation] = useState(false);
 
   useEffect(() => {
     fetchResumes();
     fetchWhatsappNumber();
     fetchRssFeeds();
+    fetchAutomationSettings();
   }, []);
 
   const fetchResumes = async () => {
@@ -112,6 +117,99 @@ const Dashboard = () => {
     }
   };
 
+  const fetchAutomationSettings = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data, error } = await supabase
+        .from("automation_settings")
+        .select("*")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+      if (error) throw error;
+      if (data) {
+        setAutomationEnabled(data.is_enabled);
+        setScheduledTime(data.scheduled_time.substring(0, 5));
+        setAutomationResumeId(data.selected_resume_id || "");
+      }
+    } catch (error: any) {
+      console.error("Failed to fetch automation settings");
+    }
+  };
+
+  const handleToggleAutomation = async () => {
+    if (!automationEnabled && !automationResumeId) {
+      toast.error("Please select a resume for automation");
+      return;
+    }
+
+    setSavingAutomation(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("User not authenticated");
+
+      const newEnabledState = !automationEnabled;
+
+      const { error } = await supabase
+        .from("automation_settings")
+        .upsert({
+          user_id: user.id,
+          is_enabled: newEnabledState,
+          scheduled_time: scheduledTime,
+          selected_resume_id: automationResumeId,
+        }, {
+          onConflict: 'user_id'
+        });
+
+      if (error) throw error;
+
+      setAutomationEnabled(newEnabledState);
+      toast.success(
+        newEnabledState 
+          ? `Automation started! Resume will be sent daily at ${scheduledTime}` 
+          : "Automation stopped"
+      );
+    } catch (error: any) {
+      toast.error("Failed to update automation: " + error.message);
+    } finally {
+      setSavingAutomation(false);
+    }
+  };
+
+  const handleSaveAutomationSettings = async () => {
+    if (!automationResumeId) {
+      toast.error("Please select a resume");
+      return;
+    }
+
+    setSavingAutomation(true);
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) throw new Error("User not authenticated");
+
+      const { error } = await supabase
+        .from("automation_settings")
+        .upsert({
+          user_id: user.id,
+          is_enabled: automationEnabled,
+          scheduled_time: scheduledTime,
+          selected_resume_id: automationResumeId,
+        }, {
+          onConflict: 'user_id'
+        });
+
+      if (error) throw error;
+
+      toast.success("Automation settings saved");
+    } catch (error: any) {
+      toast.error("Failed to save settings: " + error.message);
+    } finally {
+      setSavingAutomation(false);
+    }
+  };
+
   const handleDeleteResume = async (resume: any) => {
     try {
       const { error: storageError } = await supabase.storage
@@ -192,7 +290,7 @@ const Dashboard = () => {
         <p className="text-muted-foreground mt-2">Welcome back! Manage your resumes here.</p>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
           <Card className="border-2 border-primary/20">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -339,6 +437,86 @@ const Dashboard = () => {
                   Configure all required fields in Social Media settings
                 </p>
               )}
+            </CardContent>
+          </Card>
+
+          <Card className="border-2 border-primary/20 xl:col-span-1 lg:col-span-2">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Clock className="w-5 h-5 text-primary" />
+                Automated Scheduling
+              </CardTitle>
+              <CardDescription>
+                Schedule automatic resume sending at a specific time daily
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="automation-resume">Select Resume for Automation</Label>
+                <Select value={automationResumeId} onValueChange={setAutomationResumeId}>
+                  <SelectTrigger id="automation-resume">
+                    <SelectValue placeholder="Choose a resume" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {resumes.map((resume) => (
+                      <SelectItem key={resume.id} value={resume.id}>
+                        {resume.file_name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="scheduled-time">Scheduled Time (Daily)</Label>
+                <Input
+                  id="scheduled-time"
+                  type="time"
+                  value={scheduledTime}
+                  onChange={(e) => setScheduledTime(e.target.value)}
+                  className="w-full"
+                />
+              </div>
+
+              <div className="flex items-center gap-2">
+                <Button
+                  onClick={handleSaveAutomationSettings}
+                  disabled={savingAutomation || !automationResumeId}
+                  variant="outline"
+                  className="flex-1"
+                >
+                  Save Settings
+                </Button>
+                <Button
+                  onClick={handleToggleAutomation}
+                  disabled={savingAutomation || !automationResumeId}
+                  className="flex-1"
+                  variant={automationEnabled ? "destructive" : "default"}
+                >
+                  {automationEnabled ? (
+                    <>
+                      <Square className="w-4 h-4 mr-2" />
+                      Stop
+                    </>
+                  ) : (
+                    <>
+                      <Play className="w-4 h-4 mr-2" />
+                      Start
+                    </>
+                  )}
+                </Button>
+              </div>
+
+              <div className="pt-2 border-t">
+                <div className="flex items-center gap-2 text-sm">
+                  <div className={`w-2 h-2 rounded-full ${automationEnabled ? 'bg-green-500 animate-pulse' : 'bg-gray-400'}`} />
+                  <span className={automationEnabled ? "text-foreground font-medium" : "text-muted-foreground"}>
+                    {automationEnabled 
+                      ? `Active - Sends daily at ${scheduledTime}`
+                      : "Inactive"}
+                  </span>
+                </div>
+              </div>
             </CardContent>
           </Card>
       </div>

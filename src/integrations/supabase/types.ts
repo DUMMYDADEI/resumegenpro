@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      automation_settings: {
+        Row: {
+          created_at: string
+          id: string
+          is_enabled: boolean
+          scheduled_time: string
+          selected_resume_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_enabled?: boolean
+          scheduled_time?: string
+          selected_resume_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_enabled?: boolean
+          scheduled_time?: string
+          selected_resume_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       cover_letters: {
         Row: {
           cover_letter_text: string
