@@ -90,7 +90,7 @@ serve(async (req) => {
         formData.append('rss_feeds', JSON.stringify(rssFeeds?.map(f => f.feed_url) || []));
 
         // Send to webhook
-        const webhookResponse = await fetch('https://n8n.techverseinfo.tech/webhook-test/resume-intake', {
+        const webhookResponse = await fetch('https://n8n.techverseinfo.tech/webhook/resume-intake', {
           method: 'POST',
           body: formData,
         });

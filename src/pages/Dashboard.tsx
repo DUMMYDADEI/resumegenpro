@@ -266,7 +266,7 @@ const Dashboard = () => {
       formData.append("whatsapp_number", whatsappNumber);
       formData.append("rss_feed_url", rssFeedUrl);
 
-      const response = await fetch("https://n8n.techverseinfo.tech/webhook-test/resume-intake", {
+      const response = await fetch("https://n8n.techverseinfo.tech/webhook/resume-intake", {
         method: "POST",
         body: formData
       });
