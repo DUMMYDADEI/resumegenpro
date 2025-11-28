@@ -68,35 +68,50 @@ const Index = () => {
             </Button>
           </div>
 
-          <div id="features" className="grid md:grid-cols-3 gap-8 mt-16">
-            <div className="p-6 rounded-xl bg-card border-2 border-primary/20 hover:border-primary/40 transition-colors">
-              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                <FileCheck className="w-6 h-6 text-primary" />
+          {/* Features Section with Attractive Heading */}
+          <div id="features" className="mt-24">
+            <div className="text-center mb-16 animate-fade-in">
+              <div className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold text-sm mb-4">
+                ✨ Features
               </div>
-              <h3 className="text-xl font-semibold mb-2">Upload Your Resume</h3>
-              <p className="text-muted-foreground">
-                Securely upload your resume and let our AI analyze your skills and experience
+              <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                Everything You Need to Succeed
+              </h2>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Powerful tools to accelerate your job search and land your dream role
               </p>
             </div>
 
-            <div className="p-6 rounded-xl bg-card border-2 border-secondary/20 hover:border-secondary/40 transition-colors">
-              <div className="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                <Sparkles className="w-6 h-6 text-secondary" />
+            <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+              <div className="group p-8 rounded-2xl bg-card border border-border hover:border-primary/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in">
+                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <FileCheck className="w-8 h-8 text-primary" />
+                </div>
+                <h3 className="text-2xl font-bold mb-3 text-foreground">Upload Your Resume</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Securely upload your resume and let our AI analyze your skills and experience
+                </p>
               </div>
-              <h3 className="text-xl font-semibold mb-2">AI-Powered Matching</h3>
-              <p className="text-muted-foreground">
-                Our advanced AI finds the perfect job matches based on your unique profile
-              </p>
-            </div>
 
-            <div className="p-6 rounded-xl bg-card border-2 border-accent/20 hover:border-accent/40 transition-colors">
-              <div className="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4 mx-auto">
-                <Briefcase className="w-6 h-6 text-accent" />
+              <div className="group p-8 rounded-2xl bg-card border border-border hover:border-secondary/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Sparkles className="w-8 h-8 text-secondary" />
+                </div>
+                <h3 className="text-2xl font-bold mb-3 text-foreground">AI-Powered Matching</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Our advanced AI finds the perfect job matches based on your unique profile
+                </p>
               </div>
-              <h3 className="text-xl font-semibold mb-2">Daily Opportunities</h3>
-              <p className="text-muted-foreground">
-                Receive 5 personalized job recommendations every day, tailored to your career goals
-              </p>
+
+              <div className="group p-8 rounded-2xl bg-card border border-border hover:border-accent/40 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Briefcase className="w-8 h-8 text-accent" />
+                </div>
+                <h3 className="text-2xl font-bold mb-3 text-foreground">Daily Opportunities</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  Receive 5 personalized job recommendations every day, tailored to your career goals
+                </p>
+              </div>
             </div>
           </div>
 
