@@ -74,8 +74,10 @@ const CoverLetters = () => {
 
   const copyToClipboard = async (text: string, id: string) => {
     try {
-      // Replace \n with actual line breaks for proper formatting
-      const formattedText = text.replace(/\\n/g, '\n');
+      // Replace escape sequences with actual formatting
+      const formattedText = text
+        .replace(/\\n/g, '\n')
+        .replace(/\\t/g, '  ');
       await navigator.clipboard.writeText(formattedText);
       setCopiedId(id);
       toast({
@@ -145,7 +147,7 @@ const CoverLetters = () => {
                     </TableCell>
                     <TableCell className="max-w-[400px]">
                       <div className="text-sm text-muted-foreground line-clamp-3 whitespace-pre-wrap">
-                        {letter.cover_letter_text.replace(/\\n/g, '\n')}
+                        {letter.cover_letter_text.replace(/\\n/g, '\n').replace(/\\t/g, '  ')}
                       </div>
                     </TableCell>
                     <TableCell>
