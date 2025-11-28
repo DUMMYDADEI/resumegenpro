@@ -27,7 +27,7 @@ serve(async (req) => {
     // Get all enabled automation settings that match the current time
     const { data: automationSettings, error: settingsError } = await supabase
       .from('automation_settings')
-      .select('*, profiles!inner(email)')
+      .select('*')
       .eq('is_enabled', true)
       .eq('scheduled_time', currentTime);
 
